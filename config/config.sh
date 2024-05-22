@@ -25,7 +25,7 @@ echo "Creating directories..."
 mkdir -p ./aitrader
 
 # Check if a specific file exists and create it if it doesn't
-CONFIG_FILE="./aitrader/config/file"
+CONFIG_FILE="./aitrader/config"
 if [ ! -f "$CONFIG_FILE" ]; then
     echo "Creating config file..."
     touch "$CONFIG_FILE"
