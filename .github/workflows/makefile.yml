@@ -2,7 +2,7 @@ name: Makefile CI
 
 on:
   push:
-    branches: [ "mai" ]  # Changed from "master" to "main" if your default branch is "main".
+    branches: [ "master" ]  # Changed from "master" to "main" if your default branch is "main".
   pull_request:
     branches: [ "main" ]  # Same change as above.
 
