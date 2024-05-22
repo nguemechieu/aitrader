@@ -2,26 +2,25 @@ name: Makefile CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "mai" ]  # Changed from "master" to "main" if your default branch is "main".
   pull_request:
-    branches: [ "master" ]
+    branches: [ "main" ]  # Same change as above.
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v4  # Ensures the latest version of checkout is used.
 
-    - name: config
-      run: ./src/settings/config
+    - name: Set up environment  # More descriptive step name.
+      run: ./src/settings  # Ensure this script is executable or add 'bash' before the command.
 
     - name: Install dependencies
-      run: make
+      run: make dependencies  # Assuming you have a 'dependencies' target in your Makefile; otherwise, keep 'make' if it's configured to handle dependencies.
 
     - name: Run check
-      run: make check
+      run: make check  # Ensure the 'check' target exists in your Makefile.
 
     - name: Run distcheck
-      run: make distcheck
+      run: make distcheck  # Ensure the 'distcheck' target exists in your Makefile.
