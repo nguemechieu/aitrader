@@ -1,59 +1,28 @@
+name: Makefile CI
 
+on:
+  push:
+    branches: [ "master" ]  # Changed from "master" to "main" if your default branch is "main".
+  pull_request:
+    branches: [ "master" ]  # Same change as above.
 
-chmod +x ./config/config.sh
-```
-
-Then, check if the executable bit is set by listing the file with detailed information:
-
-```bash
-ls -l ./config/config.sh
-```
-
-You should see something like `-rwxr-xr-x` at the start of the output line, indicating that the file is executable.
-
-### 2. Commit and Push the Changes
-
-Once the executable permission is set, you need to commit and push these changes to your repository:
-
-```bash
-git add ./config/config.sh
-git commit -m "Make config.sh executable"
-git push
-```
-
-### 3. Modify the Workflow to Explicitly Set Permissions
-
-If the executable permissions are not being preserved when you push to GitHub, you can add a step in your GitHub Actions workflow to explicitly set the permissions before attempting to run the script:
-
-```yaml
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v4  # Ensures the latest version of checkout is used.
 
     - name: Set execute permission for config.sh
       run: chmod +x ./config/config.sh
 
     - name: Run config script
       run: ./config/config.sh
-```
+    - name: Install dependencies
+      run: make dependencies  # Assuming you have a 'dependencies' target in your Makefile; otherwise, keep 'make' if it's configured to handle dependencies.
 
-### 4. Use a Direct Bash Command
+    - name: Run check
+      run: make check  # Ensure the 'check' target exists in your Makefile.
 
-Alternatively, if you continue to face permission issues or prefer not to worry about them, you can directly invoke the script with `bash`, bypassing the need for execute permissions:
-
-```yaml
-- name: Run config script
-#   run: bash ./config/config.sh
-# ```
-
-# This approach uses `bash` to run your script regardless of the execute permission.
-
-# ### 5. Verify Path and Script Location
-
-# Ensure that the path `./config/config.sh` is correctly pointing to the script within your repository structure. If the path is incorrect, you will encounter errors. Make sure that the directory and filename are correct.
-
-# ### Summary
-
-# Setting the script to be executable and ensuring the correct path are critical steps. Additionally, updating your GitHub Actions workflow to adjust permissions or to directly call the script with `bash` can help resolve the permission issues you're facing.
+    - name: Run distcheck
+      run: make distcheck  # Ensure the 'distcheck' target exists in your Makefile.
