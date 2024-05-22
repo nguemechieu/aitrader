@@ -53,7 +53,7 @@ Explain how to run the automated tests for this system:
 How to use the app in live trading environments:
 
 ```bash
-./aitrader --config yourconfigfile.cfg
+./aitrader --config.cfg
 ```
 
 ## Built With
