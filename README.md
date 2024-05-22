@@ -48,6 +48,10 @@ Explain how to run the automated tests for this system:
 ./run_tests
 ```
 
+```bash
+./aitrader
+```
+
 ## Usage
 
 How to use the app in live trading environments:
